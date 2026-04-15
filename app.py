@@ -89,7 +89,10 @@ fake_news_list = [
     "A new study proves that drinking coffee makes humans invisible for 5 minutes.",
     "NASA announced a hidden planet made entirely of gold near the solar system."
 ]
-
+# Function to clear text safely
+def clear_text():
+    # بنفضي القيمة من session_state
+    st.session_state.news_input = ""
 st.markdown("### ⚡ Try Random News Examples")
 
 col1, col2 = st.columns(2)
@@ -123,11 +126,7 @@ with col1:
 with col2:
     clear_btn = st.button("🧹 Clear")
 
-if clear_btn:
-     # بنفضي النص من session_state → سواء مكتوب بإيدك أو من زرار
-    st.session_state.news_input = ""
-    # بنعمل إعادة تشغيل للـ app علشان يظهر التغيير فورًا
-    st.rerun()
+st.button("🗑 Clear", on_click=clear_text)
 
 # =========================
 # Prediction
