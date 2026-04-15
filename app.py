@@ -3,6 +3,12 @@ import pickle
 import re
 import random
 # =========================
+# Session State Initialization
+# =========================
+# بنهيّئ المتغير علشان نتحكم في قيمة الـ text_area (سواء user كتب أو ضغط زرار)
+if "news_input" not in st.session_state:
+    st.session_state.news_input = ""
+# =========================
 # Load Model & Vectorizer
 # =========================
 model = pickle.load(open("models/tfidf_model.pkl", "rb"))
@@ -98,10 +104,12 @@ with col2:
 # =========================
 # Input Area
 # =========================
+# Text Area مربوط بـ session_state عن طريق key
+# ده بيخلي أي تغيير (كتابة أو زرار) يتخزن ويتتحكم فيه بسهولة
 user_input = st.text_area(
     "✍ Enter News Text Here:",
     height=200,
-    value=st.session_state.get("news_input", "")
+    key="news_input"
 )
 
 # =========================
@@ -116,7 +124,9 @@ with col2:
     clear_btn = st.button("🧹 Clear")
 
 if clear_btn:
-    st.session_state["news_input"] = ""
+     # بنفضي النص من session_state → سواء مكتوب بإيدك أو من زرار
+    st.session_state.news_input = ""
+    # بنعمل إعادة تشغيل للـ app علشان يظهر التغيير فورًا
     st.rerun()
 
 # =========================
