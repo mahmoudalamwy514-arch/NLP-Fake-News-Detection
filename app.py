@@ -1,7 +1,7 @@
 import streamlit as st
 import pickle
 import re
-
+import random
 # =========================
 # Load Model & Vectorizer
 # =========================
@@ -72,22 +72,29 @@ st.markdown('<p class="subtitle">Enter a news article and detect if it is Fake o
 # =========================
 # Example Buttons
 # =========================
-st.markdown("### ⚡ Try Example News")
+real_news_list = [
+    "The government announced new economic reforms to boost infrastructure and job creation.",
+    "Scientists developed a new vaccine that shows high effectiveness against viral infections.",
+    "The central bank confirmed stability in the national currency after recent reforms."
+]
 
-col_ex1, col_ex2 = st.columns(2)
+fake_news_list = [
+    "Scientists confirmed that aliens are secretly living among humans and controlling governments.",
+    "A new study proves that drinking coffee makes humans invisible for 5 minutes.",
+    "NASA announced a hidden planet made entirely of gold near the solar system."
+]
 
-with col_ex1:
+st.markdown("### ⚡ Try Random News Examples")
+
+col1, col2 = st.columns(2)
+
+with col1:
     if st.button("📰 Real News Example"):
-        st.session_state["news_input"] = """
-        The government announced new economic reforms to improve infrastructure and boost job opportunities across the country.
-        """
+        st.session_state["news_input"] = random.choice(real_news_list)
 
-with col_ex2:
+with col2:
     if st.button("🚨 Fake News Example"):
-        st.session_state["news_input"] = """
-        Scientists discovered a secret alien base under the ocean where world leaders meet to plan global domination.
-        """
-
+        st.session_state["news_input"] = random.choice(fake_news_list)
 # =========================
 # Input Area
 # =========================
@@ -110,7 +117,7 @@ with col2:
 
 if clear_btn:
     st.session_state["news_input"] = ""
-    st.experimental_rerun()
+    st.rerun()
 
 # =========================
 # Prediction
