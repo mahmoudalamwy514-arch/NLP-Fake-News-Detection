@@ -124,10 +124,7 @@ with col1:
     predict_btn = st.button("🚀 Predict")
 
 with col2:
-    clear_btn = st.button("🧹 Clear")
-
-st.button("🗑 Clear", on_click=clear_text)
-
+    st.button("🧹 Clear", on_click=clear_text)
 # =========================
 # Prediction
 # =========================
